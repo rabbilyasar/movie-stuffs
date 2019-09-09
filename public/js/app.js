@@ -1900,13 +1900,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['id'],
+  props: ["id"],
   data: function data() {
     return {
-      singleMovie: ''
+      singleMovie: "",
+      fullLink: '',
+      key: '',
+      tubeLink: 'https://www.youtube.com/embed/'
     };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://api.themoviedb.org/3/movie/".concat(this.id, "?api_key=5f5cc4cec8c4b74023cc7963417ca5d2&append_to_response=videos")).then(function (res) {
+      return _this.singleMovie = res.data;
+    } // console.log(res.data)
+    );
+  },
+  computed: {
+    createLink: function createLink() {
+      return this.tubeLink + this.singleMovie.videos.results[0].key;
+    }
   }
 });
 
@@ -3145,7 +3174,43 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "singleMovie" } }, [
-    _vm._v("\n  " + _vm._s(_vm.id) + "\n")
+    _c(
+      "div",
+      {
+        staticClass: "demo-card-wide mdl-card mdl-shadow--2dp",
+        style: {
+          "background-image":
+            "url(" +
+            "https://image.tmdb.org/t/p/w500" +
+            _vm.singleMovie.backdrop_path +
+            ")"
+        }
+      },
+      [
+        _c("div", { staticClass: "mdl-card__title" }, [
+          _c("h2", { staticClass: "mdl-card__title-text" }, [
+            _vm._v(_vm._s(_vm.singleMovie.title))
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "mdl-card__supporting-text m-auto" }, [
+          _c("iframe", {
+            attrs: {
+              width: "800",
+              height: "315",
+              src: _vm.createLink,
+              frameborder: "0",
+              allow: "autoplay; encrypted-media",
+              allowfullscreen: ""
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "mdl-card__supporting-text text-dark" }, [
+          _vm._v("\n      " + _vm._s(_vm.singleMovie.overview) + "\n    ")
+        ])
+      ]
+    )
   ])
 }
 var staticRenderFns = []
