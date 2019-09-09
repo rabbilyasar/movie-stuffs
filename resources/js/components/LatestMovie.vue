@@ -1,5 +1,5 @@
 <template>
-  <div id="home">
+  <div id="latest">
     <div class="movie-section p-3" v-for="totalResponse in totalResponses" :key="totalResponse.id">
       <div class="demo-card-wide mdl-card mdl-shadow--2dp" v-bind:style="{ 'background-image': 'url(' + `https://image.tmdb.org/t/p/w500${totalResponse.poster_path}` + ')' }" >
         <div class="mdl-card__title">
@@ -22,7 +22,7 @@ export default {
   data: function() {
     return {
       api_key: '5f5cc4cec8c4b74023cc7963417ca5d2',
-      popular_movie: 'https://api.themoviedb.org/3/movie/top_rated',
+      movie: 'https://api.themoviedb.org/3/movie/upcoming',
       totalResponses: []
     };
   },
@@ -30,9 +30,9 @@ export default {
   mounted() {
     axios
       .get(
-        `${this.popular_movie}?api_key=${this.api_key}&language=en-US&page=1`
+        `${this.movie}?api_key=${this.api_key}&language=en-US&page=1`
       )
-      .then(res => (this.totalResponses = res.data.results))
+      .then(res => (this.totalResponses = res.data.resutls))
       .catch(err => console.log(err));
   },
   methods: {

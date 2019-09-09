@@ -18,7 +18,7 @@
 
     <body>
         <div id="app">
-            <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer
+            {{-- <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer
 mdl-layout--fixed-header">
                 <header class="mdl-layout__header">
                     <div class="mdl-layout__header-row">
@@ -36,7 +36,7 @@ mdl-layout--fixed-header">
                     </div>
                 </header>
                 <div class="mdl-layout__drawer">
-                    <span class="mdl-layout-title">Title</span>
+                    <span class="mdl-layout-title">MOVIE&STUFFS</span>
                     <nav class="mdl-navigation">
                         <router-link :to="{name: 'home'}" class="mdl-navigation__link">Home</router-link>
                         <router-link :to="{name: 'home'}" class="mdl-navigation__link">Top Rated</router-link>
@@ -54,10 +54,16 @@ mdl-layout--fixed-header">
                         </div>
                     </div>
                 </main>
-            </div>
+            </div> --}}
         </div>
         <script src="{{asset('js/app.js')}}"></script>
         <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     </body>
 
 </html>
+
+<style>
+    body{
+        background: lightgray;
+    }
+</style>
