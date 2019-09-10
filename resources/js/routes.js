@@ -30,7 +30,7 @@ export default {
       component: Movie
     },
     {
-      path: '/movie/search/:results',
+      path: '/search/:query',
       name: 'search',
       props: true,
       component: SearchResults

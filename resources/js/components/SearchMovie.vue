@@ -9,8 +9,7 @@
             <i class="material-icons">search</i>
           </label>
           <div class="mdl-textfield__expandable-holder">
-            <input class="mdl-textfield__input" type="text" name="sample" id="fixed-header-drawer-exp" v-model="input" placeholder="Search for movies.."/>
-            <button class="btn text-white" @click="searchResult(results)">Search</button>
+            <input class="mdl-textfield__input" type="text" name="sample" id="fixed-header-drawer-exp" v-model.trim="searchQuery" @keyup.enter="search" @blur="searchQuery" placeholder="Search for a movie.."/>
           </div>
         </div>
       </div>
@@ -26,30 +25,30 @@ export default {
 
   data: function () {
     return {
-      input: '',
+      searchQuery: '',
       results: []
     }
   },
 
   computed: {
-    filteredSearch: function() {
-      return this.input.trim()
+    queryForRouter() {
+      return encodeURI(this.searchQuery.replace(/ /g, "+"))
     }
   },
 
-  method: {
-    searchResult(results) {
-      console.log(results)
-      // this.$router.push('/movie/search/' + results)
+  methods: {
+    search() {
+      if(!this.searchQuery.length)return;
+      this.$router.push({name: 'search', params: { query: this.queryForRouter }});
     }
   },
 
-  mounted() {
-    axios.get(`https://api.themoviedb.org/3/search/movie?api_key=5f5cc4cec8c4b74023cc7963417ca5d2&language=en-US&query=${this.filteredSearch}&page=1&include_adult=false`)
-    .then(res => 
-      this.results = res.data 
-    )
-  }
+  // mounted() {
+  //   axios.get(`https://api.themoviedb.org/3/search/movie?api_key=5f5cc4cec8c4b74023cc7963417ca5d2&language=en-US&query=${this.filteredSearch}&page=1&include_adult=false`)
+  //   .then(res => 
+  //     this.results = res.data 
+  //   )
+  // }
 };
 </script>
 

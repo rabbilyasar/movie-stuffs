@@ -2,7 +2,7 @@
   <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
     <Search></Search>
     <div class="mdl-layout__drawer">
-      <span class="mdl-layout-title">MOVIE&STUFFS</span>
+        <router-link :to="{name: 'home'}" class="mdl-layout-title title">MOVIE&STUFFS</router-link>
       <nav class="mdl-navigation">
         <router-link :to="{name: 'home'}" class="mdl-navigation__link">Home</router-link>
         <router-link :to="{name: 'topRated'}" class="mdl-navigation__link">Top Rated</router-link>
@@ -30,5 +30,10 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+
+.title{
+  text-decoration: none;
+}
+
 </style>
