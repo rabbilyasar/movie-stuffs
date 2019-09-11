@@ -93,8 +93,12 @@ export default {
           { request_token: this.token }
         )
         .then(res => {
+          if (typeof this.ratingValue == 'string') {
+            this.ratingValue =JSON.parse(this.ratingValue)
+          }
+          
           console.log(this.ratingValue)
-          // this.guest_session_id = res.data.session_id
+
           axios
             .post(
               `https://api.themoviedb.org/3/movie/${this.id}/rating?api_key=${this.api}&guest_session_id=${res.data.guest_session_id}`,

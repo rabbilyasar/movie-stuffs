@@ -2097,8 +2097,11 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("https://api.themoviedb.org/3/authentication/guest_session/new?api_key=".concat(this.api), {
         request_token: this.token
       }).then(function (res) {
-        console.log(_this.ratingValue); // this.guest_session_id = res.data.session_id
+        if (typeof _this.ratingValue == 'string') {
+          _this.ratingValue = JSON.parse(_this.ratingValue);
+        }
 
+        console.log(_this.ratingValue);
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("https://api.themoviedb.org/3/movie/".concat(_this.id, "/rating?api_key=").concat(_this.api, "&guest_session_id=").concat(res.data.guest_session_id), {
           value: _this.ratingValue
         }).then(function (res) {
