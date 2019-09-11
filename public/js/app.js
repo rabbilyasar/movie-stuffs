@@ -2080,7 +2080,7 @@ __webpack_require__.r(__webpack_exports__);
       key: "",
       token: this.$route.query.request_token,
       loading: true,
-      ratingValue: 0
+      ratingValue: null
     };
   },
   mounted: function mounted() {
@@ -2095,15 +2095,14 @@ __webpack_require__.r(__webpack_exports__);
 
     if (this.token) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("https://api.themoviedb.org/3/authentication/guest_session/new?api_key=".concat(this.api), {
-        request_token: this.token
+        "request_token": this.token
       }).then(function (res) {
-        if (typeof _this.ratingValue == 'string') {
-          _this.ratingValue = JSON.parse(_this.ratingValue);
-        }
-
+        // if (typeof this.ratingValue == 'string') {
+        //   this.ratingValue =JSON.parse(this.ratingValue)
+        // }
         console.log(_this.ratingValue);
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("https://api.themoviedb.org/3/movie/".concat(_this.id, "/rating?api_key=").concat(_this.api, "&guest_session_id=").concat(res.data.guest_session_id), {
-          value: _this.ratingValue
+          "value": _this.ratingValue
         }).then(function (res) {
           return "entry succesful";
         })["catch"](function (err) {
@@ -2115,10 +2114,6 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     clicked: function clicked() {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("https://api.themoviedb.org/3/authentication/token/new?api_key=".concat(this.api)).then(function (resp) {
-        if (typeof resp.data == "string") {
-          resp.data = JSON.parse(resp.data);
-        }
-
         var data = resp.data;
         window.location.href = "https://www.themoviedb.org/authenticate/".concat(data.request_token, "?redirect_to=").concat(location.protocol, "//").concat(location.host, "/movie/").concat(this.id);
       }.bind(this));

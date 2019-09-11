@@ -68,7 +68,7 @@ export default {
       key: "",
       token: this.$route.query.request_token,
       loading: true,
-      ratingValue: 0
+      ratingValue: null
     };
   },
 
@@ -90,19 +90,19 @@ export default {
       axios
         .post(
           `https://api.themoviedb.org/3/authentication/guest_session/new?api_key=${this.api}`,
-          { request_token: this.token }
+          { "request_token": this.token }
         )
         .then(res => {
-          if (typeof this.ratingValue == 'string') {
-            this.ratingValue =JSON.parse(this.ratingValue)
-          }
-          
+          // if (typeof this.ratingValue == 'string') {
+          //   this.ratingValue =JSON.parse(this.ratingValue)
+          // }
+
           console.log(this.ratingValue)
 
           axios
             .post(
               `https://api.themoviedb.org/3/movie/${this.id}/rating?api_key=${this.api}&guest_session_id=${res.data.guest_session_id}`,
-              { value: this.ratingValue }
+              { "value": this.ratingValue }
             )
             .then(res => "entry succesful")
             .catch(err => console.log(err));
@@ -118,9 +118,6 @@ export default {
         )
         .then(
           function(resp) {
-            if (typeof resp.data == "string") {
-              resp.data = JSON.parse(resp.data);
-            }
             let data = resp.data;
             window.location.href = `https://www.themoviedb.org/authenticate/${data.request_token}?redirect_to=${location.protocol}//${location.host}/movie/${this.id}`;
           }.bind(this)
