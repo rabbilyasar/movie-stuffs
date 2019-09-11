@@ -2117,6 +2117,9 @@ __webpack_require__.r(__webpack_exports__);
         var data = resp.data;
         window.location.href = "https://www.themoviedb.org/authenticate/".concat(data.request_token, "?redirect_to=").concat(location.protocol, "//").concat(location.host, "/movie/").concat(this.id);
       }.bind(this));
+    },
+    rateResult: function rateResult(data) {
+      this.ratingValue = data;
     }
   },
   computed: {
@@ -2125,9 +2128,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     createLink: function createLink() {
       return this.tubeLink + this.singleMovie.videos.results[0].key;
-    },
-    rateResult: function rateResult(data) {
-      this.ratingValue = data;
     }
   }
 });
@@ -2167,7 +2167,7 @@ __webpack_require__.r(__webpack_exports__);
   name: "rating",
   data: function data() {
     return {
-      value: []
+      value: 0
     };
   },
   methods: {

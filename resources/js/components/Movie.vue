@@ -122,6 +122,9 @@ export default {
             window.location.href = `https://www.themoviedb.org/authenticate/${data.request_token}?redirect_to=${location.protocol}//${location.host}/movie/${this.id}`;
           }.bind(this)
         );
+    },
+    rateResult(data) {
+      this.ratingValue = data;
     }
   },
 
@@ -132,9 +135,7 @@ export default {
     createLink() {
       return this.tubeLink + this.singleMovie.videos.results[0].key;
     },
-    rateResult(data) {
-      this.ratingValue = data;
-    }
+
   }
 };
 </script>
