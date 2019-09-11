@@ -10,6 +10,8 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+
+        {{-- styles --}}
         <link rel="stylesheet" href="{{asset('css/app.css')}}">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
@@ -18,6 +20,7 @@
 
     <body>
         <div id="app"></div>
+        
         <script src="{{asset('js/app.js')}}"></script>
         <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     </body>

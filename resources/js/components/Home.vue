@@ -3,7 +3,7 @@
   <div v-if="loading" class="loader"></div>
     <div class="row">
       <div class="movie-section p-3" v-for="totalResponse in totalResponses" :key="totalResponse.id">
-        <div class="col-md-4">
+        <div class="col-md-6 justify-content-center">
             <div class="demo-card-wide mdl-card mdl-shadow--2dp" v-bind:style="{ 'background-image': 'url(' + `https://image.tmdb.org/t/p/w500${totalResponse.poster_path}` + ')' }" >
             <div class="mdl-card__title">
               <h1 class="mdl-card__title-text text-light"><strong>{{totalResponse.title}}</strong></h1>
@@ -23,6 +23,7 @@
 
 <script>
 import axios from "axios";
+
 export default {
   data: function() {
     return {
@@ -53,11 +54,8 @@ export default {
 </script>
 
 <style scoped>
-/* #home{
-  background: gray;
-} */
 .demo-card-wide.mdl-card {
-  width: 500px;
+  width: 450px;
 }
 .demo-card-wide > .mdl-card__title {
   color: #fff;

@@ -7,7 +7,8 @@
     >
       <div class="mdl-card__title">
         <h2 class="mdl-card__title-text text-center text-primary">
-          <a :href="homepageLink" target="blank">{{singleMovie.title}}</a></h2>
+          <a :href="homepageLink" target="blank">{{singleMovie.title}}</a>
+        </h2>
       </div>
       <div class="mdl-card__supporting-text m-auto">
         <iframe
@@ -35,6 +36,9 @@
           <span>{{singleMovie.vote_average}}/10</span>
           ({{singleMovie.vote_count}})
         </h5>
+        <Rating @ratingValue="rateResult"></Rating>
+        <button @click="clicked">Rate it!</button>
+        <!-- <StarRating v-model="ratingValue"></StarRating> -->
       </div>
     </div>
   </div>
@@ -42,23 +46,29 @@
 
 <script>
 import axios from "axios";
+import Rating from "./Rating";
+import StarRating from 'vue-star-rating'
 
 export default {
   props: ["id"],
 
+  components: {
+    Rating,
+    StarRating
+  },
+
   data: function() {
     return {
-      homepage: '',
+      homepage: "",
       movie_url: "http://api.themoviedb.org/3/movie",
       api: "5f5cc4cec8c4b74023cc7963417ca5d2",
       tubeLink: "https://www.youtube.com/embed/",
       singleMovie: "",
       fullLink: "",
       key: "",
-      guest_session_id: "",
+      token: this.$route.query.request_token,
       loading: true,
-      session_id: false,
-      token: ""
+      ratingValue: 0
     };
   },
 
@@ -73,45 +83,56 @@ export default {
       })
       .then(function() {
         if (!this.session_id) {
-          axios
-            .get(
-              `https://api.themoviedb.org/3/authentication/token/new?api_key=${this.api}`
-            )
-            .then(
-              function(resp) {
-                if (typeof resp.data == "string") {
-                  resp.data = JSON.parse(resp.data);
-                }
-                let data = resp.data;
-                window.location.href = `https://www.themoviedb.org/authenticate/${data.request_token}?redirect_to=${location.protocol}//${location.host}/movie/${this.id}`;
-
-                this.session_id = true;
-                this.token = data.request_token;
-
-                console.log(this.token, this.session_id);
-              }.bind(this)
-            )
-            .then(function() {
-              axios
-                .post(
-                  `https://api.themoviedb.org/3/authentication/session/new?api_key=${this.api}`,
-                  { request_token: this.token }
-                )
-                .then(res => console.log("sdjsdkj"));
-            });
         }
       });
-  },
-  created() {},
 
-  beforeUpdate() {},
+    if (this.token) {
+      axios
+        .post(
+          `https://api.themoviedb.org/3/authentication/guest_session/new?api_key=${this.api}`,
+          { request_token: this.token }
+        )
+        .then(res => {
+          console.log(this.ratingValue)
+          // this.guest_session_id = res.data.session_id
+          axios
+            .post(
+              `https://api.themoviedb.org/3/movie/${this.id}/rating?api_key=${this.api}&guest_session_id=${res.data.guest_session_id}`,
+              { value: this.ratingValue }
+            )
+            .then(res => "entry succesful")
+            .catch(err => console.log(err));
+        });
+    }
+  },
+
+  methods: {
+    clicked() {
+      axios
+        .get(
+          `https://api.themoviedb.org/3/authentication/token/new?api_key=${this.api}`
+        )
+        .then(
+          function(resp) {
+            if (typeof resp.data == "string") {
+              resp.data = JSON.parse(resp.data);
+            }
+            let data = resp.data;
+            window.location.href = `https://www.themoviedb.org/authenticate/${data.request_token}?redirect_to=${location.protocol}//${location.host}/movie/${this.id}`;
+          }.bind(this)
+        );
+    }
+  },
 
   computed: {
     homepageLink() {
-      return this.homepage = this.singleMovie.homepage
+      return (this.homepage = this.singleMovie.homepage);
     },
     createLink() {
       return this.tubeLink + this.singleMovie.videos.results[0].key;
+    },
+    rateResult(data) {
+      this.ratingValue = data;
     }
   }
 };

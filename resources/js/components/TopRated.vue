@@ -1,16 +1,20 @@
 <template>
   <div id="home">
   <div v-if="loading" class="loader"></div>
-    <div class="movie-section p-3" v-for="totalResponse in totalResponses" :key="totalResponse.id">
-      <div class="demo-card-wide mdl-card mdl-shadow--2dp" v-bind:style="{ 'background-image': 'url(' + `https://image.tmdb.org/t/p/w500${totalResponse.poster_path}` + ')' }" >
-        <div class="mdl-card__title">
-          <h1 class="mdl-card__title-text text-light"><strong>{{totalResponse.title}}</strong></h1>
-        </div>
-        <div class="mdl-card__supporting-text text-light">
-          {{totalResponse.overview}}
-        </div>
-        <div class="mdl-card__actions mdl-card--border">
-          <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect text-light bg-dark" @click="singleMovie(totalResponse.id)">Get Details</a>
+    <div class="row">
+      <div class="movie-section p-3" v-for="totalResponse in totalResponses" :key="totalResponse.id">
+        <div class="col-md-6 justify-content-center">
+            <div class="demo-card-wide mdl-card mdl-shadow--2dp" v-bind:style="{ 'background-image': 'url(' + `https://image.tmdb.org/t/p/w500${totalResponse.poster_path}` + ')' }" >
+            <div class="mdl-card__title">
+              <h1 class="mdl-card__title-text text-light"><strong>{{totalResponse.title}}</strong></h1>
+            </div>
+            <div class="mdl-card__supporting-text text-light">
+              {{totalResponse.overview}}
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+              <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect text-light bg-dark" @click="singleMovie(totalResponse.id)">Get Details</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -51,7 +55,7 @@ export default {
 <style scoped>
 
 .demo-card-wide.mdl-card {
-  width: 500px;
+  width: 450px;
 }
 .demo-card-wide > .mdl-card__title {
   color: #fff;

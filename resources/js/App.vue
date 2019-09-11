@@ -1,6 +1,11 @@
 <template>
   <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
-    <Search></Search>
+    <header class="mdl-layout__header">
+      <div class="mdl-layout__header-row">
+        <div class="mdl-layout-spacer"></div>
+        <Search></Search>
+      </div>
+    </header>
     <div class="mdl-layout__drawer">
         <router-link :to="{name: 'home'}" class="mdl-layout-title title">MOVIE&STUFFS</router-link>
       <nav class="mdl-navigation">

@@ -2,7 +2,7 @@
   <div id="latest">
   <div v-if="loading" class="loader"></div>
   <div v-for="items in totalResponses" :key="items.id">
-    <div class="movie-section p-3" v-for="totalResponse in items" :key="totalResponse.id">
+    <div class="movie-section p-3" v-for="totalResponse in   items" :key="totalResponse.id">
       <div class="demo-card-wide mdl-card mdl-shadow--2dp" v-bind:style="{ 'background-image': 'url(' + `https://image.tmdb.org/t/p/w500${totalResponse.poster_path}` + ')' }" >
         <div class="mdl-card__title">
           <h1 class="mdl-card__title-text text-light"><strong>{{totalResponse.title}}</strong></h1>
