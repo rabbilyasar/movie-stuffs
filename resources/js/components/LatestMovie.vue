@@ -63,11 +63,11 @@ export default {
   color: #fff;
 }
 .loader {
+  width: 120px;
+  height: 120px;
   border: 16px solid #f3f3f3; /* Light grey */
   border-top: 16px solid black; /* Blue */
   border-radius: 50%;
-  width: 120px;
-  height: 120px;
   animation: spin 2s linear infinite;
 }
 

@@ -1901,6 +1901,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2039,18 +2043,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["id"],
   data: function data() {
     return {
+      homepage: '',
       movie_url: "http://api.themoviedb.org/3/movie",
       api: "5f5cc4cec8c4b74023cc7963417ca5d2",
       tubeLink: "https://www.youtube.com/embed/",
       singleMovie: "",
       fullLink: "",
       key: "",
-      loading: true
+      guest_session_id: "",
+      loading: true,
+      session_id: false,
+      token: ""
     };
   },
   mounted: function mounted() {
@@ -2059,9 +2072,34 @@ __webpack_require__.r(__webpack_exports__);
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("".concat(this.movie_url, "/").concat(this.id, "?api_key=").concat(this.api, "&append_to_response=videos")).then(function (res) {
       _this.singleMovie = res.data;
       _this.loading = false;
+    }).then(function () {
+      if (!this.session_id) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("https://api.themoviedb.org/3/authentication/token/new?api_key=".concat(this.api)).then(function (resp) {
+          if (typeof resp.data == "string") {
+            resp.data = JSON.parse(resp.data);
+          }
+
+          var data = resp.data;
+          window.location.href = "https://www.themoviedb.org/authenticate/".concat(data.request_token, "?redirect_to=").concat(location.protocol, "//").concat(location.host, "/movie/").concat(this.id);
+          this.session_id = true;
+          this.token = data.request_token;
+          console.log(this.token, this.session_id);
+        }.bind(this)).then(function () {
+          axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("https://api.themoviedb.org/3/authentication/session/new?api_key=".concat(this.api), {
+            request_token: this.token
+          }).then(function (res) {
+            return console.log("sdjsdkj");
+          });
+        });
+      }
     });
   },
+  created: function created() {},
+  beforeUpdate: function beforeUpdate() {},
   computed: {
+    homepageLink: function homepageLink() {
+      return this.homepage = this.singleMovie.homepage;
+    },
     createLink: function createLink() {
       return this.tubeLink + this.singleMovie.videos.results[0].key;
     }
@@ -2124,13 +2162,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     }
-  } // mounted() {
-  //   axios.get(`https://api.themoviedb.org/3/search/movie?api_key=5f5cc4cec8c4b74023cc7963417ca5d2&language=en-US&query=${this.filteredSearch}&page=1&include_adult=false`)
-  //   .then(res => 
-  //     this.results = res.data 
-  //   )
-  // }
-
+  }
 });
 
 /***/ }),
@@ -2309,7 +2341,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* #home{\r\n  background: gray;\r\n} */\n.demo-card-wide.mdl-card[data-v-f2b6376c] {\r\n  width: 500px;\n}\n.demo-card-wide > .mdl-card__title[data-v-f2b6376c] {\r\n  color: #fff;\r\n  height: 500px;\n}\n.demo-card-wide > .mdl-card__menu[data-v-f2b6376c] {\r\n  color: #fff;\n}\n.loader[data-v-f2b6376c] {\r\n  border: 16px solid #f3f3f3; /* Light grey */\r\n  border-top: 16px solid black; /* Blue */\r\n  border-radius: 50%;\r\n  width: 120px;\r\n  height: 120px;\r\n  -webkit-animation: spin-data-v-f2b6376c 2s linear infinite;\r\n          animation: spin-data-v-f2b6376c 2s linear infinite;\n}\n@-webkit-keyframes spin-data-v-f2b6376c {\n0% { transform: rotate(0deg);\n}\n100% { transform: rotate(360deg);\n}\n}\n@keyframes spin-data-v-f2b6376c {\n0% { transform: rotate(0deg);\n}\n100% { transform: rotate(360deg);\n}\n}\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* #home{\r\n  background: gray;\r\n} */\n.demo-card-wide.mdl-card[data-v-f2b6376c] {\r\n  width: 500px;\n}\n.demo-card-wide > .mdl-card__title[data-v-f2b6376c] {\r\n  color: #fff;\r\n  height: 500px;\n}\n.demo-card-wide > .mdl-card__menu[data-v-f2b6376c] {\r\n  color: #fff;\n}\n.loader[data-v-f2b6376c] {\r\n  border: 16px solid #f3f3f3; /* Light grey */\r\n  border-top: 16px solid black; /* Blue */\r\n  border-radius: 50%;\r\n  width: 120px;\r\n  height: 120px;\r\n  -webkit-animation: spin-data-v-f2b6376c 2s linear infinite;\r\n          animation: spin-data-v-f2b6376c 2s linear infinite;\n}\n@-webkit-keyframes spin-data-v-f2b6376c {\n0% { transform: rotate(0deg);\n}\n100% { transform: rotate(360deg);\n}\n}\n@keyframes spin-data-v-f2b6376c {\n0% { transform: rotate(0deg);\n}\n100% { transform: rotate(360deg);\n}\n}\r\n", ""]);
 
 // exports
 
@@ -2328,7 +2360,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.demo-card-wide.mdl-card[data-v-522d8b64] {\r\n  width: 500px;\n}\n.demo-card-wide > .mdl-card__title[data-v-522d8b64] {\r\n  color: #fff;\r\n  height: 500px;\n}\n.demo-card-wide > .mdl-card__menu[data-v-522d8b64] {\r\n  color: #fff;\n}\n.loader[data-v-522d8b64] {\r\n  border: 16px solid #f3f3f3; /* Light grey */\r\n  border-top: 16px solid black; /* Blue */\r\n  border-radius: 50%;\r\n  width: 120px;\r\n  height: 120px;\r\n  -webkit-animation: spin-data-v-522d8b64 2s linear infinite;\r\n          animation: spin-data-v-522d8b64 2s linear infinite;\n}\n@-webkit-keyframes spin-data-v-522d8b64 {\n0% { transform: rotate(0deg);\n}\n100% { transform: rotate(360deg);\n}\n}\n@keyframes spin-data-v-522d8b64 {\n0% { transform: rotate(0deg);\n}\n100% { transform: rotate(360deg);\n}\n}\r\n", ""]);
+exports.push([module.i, "\n.demo-card-wide.mdl-card[data-v-522d8b64] {\r\n  width: 500px;\n}\n.demo-card-wide > .mdl-card__title[data-v-522d8b64] {\r\n  color: #fff;\r\n  height: 500px;\n}\n.demo-card-wide > .mdl-card__menu[data-v-522d8b64] {\r\n  color: #fff;\n}\n.loader[data-v-522d8b64] {\r\n  width: 120px;\r\n  height: 120px;\r\n  border: 16px solid #f3f3f3; /* Light grey */\r\n  border-top: 16px solid black; /* Blue */\r\n  border-radius: 50%;\r\n  -webkit-animation: spin-data-v-522d8b64 2s linear infinite;\r\n          animation: spin-data-v-522d8b64 2s linear infinite;\n}\n@-webkit-keyframes spin-data-v-522d8b64 {\n0% { transform: rotate(0deg);\n}\n100% { transform: rotate(360deg);\n}\n}\n@keyframes spin-data-v-522d8b64 {\n0% { transform: rotate(0deg);\n}\n100% { transform: rotate(360deg);\n}\n}\r\n", ""]);
 
 // exports
 
@@ -2347,7 +2379,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.demo-card-wide.mdl-card[data-v-191f9fd5] {\r\n  width: auto;\n}\n.demo-card-wide > .mdl-card__title[data-v-191f9fd5] {\r\n  color: #fff;\r\n  height: auto;\n}\n.demo-card-wide > .mdl-card__menu[data-v-191f9fd5] {\r\n  color: #fff;\n}\r\n", ""]);
+exports.push([module.i, "\n.green[data-v-191f9fd5] {\r\n  color: green;\n}\n.demo-card-wide.mdl-card[data-v-191f9fd5] {\r\n  width: auto;\n}\n.demo-card-wide > .mdl-card__title[data-v-191f9fd5] {\r\n  color: #fff;\r\n  height: auto;\n}\n.demo-card-wide > .mdl-card__menu[data-v-191f9fd5] {\r\n  color: #fff;\n}\n.loader[data-v-191f9fd5] {\r\n  border: 16px solid #f3f3f3; /* Light grey */\r\n  border-top: 16px solid black; /* Blue */\r\n  border-radius: 50%;\r\n  width: 120px;\r\n  height: 120px;\r\n  -webkit-animation: spin-data-v-191f9fd5 2s linear infinite;\r\n          animation: spin-data-v-191f9fd5 2s linear infinite;\n}\na[data-v-191f9fd5] {\r\n  text-decoration: none;\n}\n@-webkit-keyframes spin-data-v-191f9fd5 {\n0% {\r\n    transform: rotate(0deg);\n}\n100% {\r\n    transform: rotate(360deg);\n}\n}\n@keyframes spin-data-v-191f9fd5 {\n0% {\r\n    transform: rotate(0deg);\n}\n100% {\r\n    transform: rotate(360deg);\n}\n}\r\n", ""]);
 
 // exports
 
@@ -3770,73 +3802,79 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { attrs: { id: "home" } },
-    [
-      _vm.loading ? _c("div", { staticClass: "loader" }) : _vm._e(),
-      _vm._v(" "),
+  return _c("div", { attrs: { id: "home" } }, [
+    _vm.loading ? _c("div", { staticClass: "loader" }) : _vm._e(),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "row" },
       _vm._l(_vm.totalResponses, function(totalResponse) {
         return _c(
           "div",
           { key: totalResponse.id, staticClass: "movie-section p-3" },
           [
-            _c(
-              "div",
-              {
-                staticClass: "demo-card-wide mdl-card mdl-shadow--2dp",
-                style: {
-                  "background-image":
-                    "url(" +
-                    "https://image.tmdb.org/t/p/w500" +
-                    totalResponse.poster_path +
-                    ")"
-                }
-              },
-              [
-                _c("div", { staticClass: "mdl-card__title" }, [
-                  _c("h1", { staticClass: "mdl-card__title-text text-light" }, [
-                    _c("strong", [_vm._v(_vm._s(totalResponse.title))])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "mdl-card__supporting-text text-light" },
-                  [
-                    _vm._v(
-                      "\n        " + _vm._s(totalResponse.overview) + "\n      "
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "mdl-card__actions mdl-card--border" },
-                  [
+            _c("div", { staticClass: "col-md-4" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "demo-card-wide mdl-card mdl-shadow--2dp",
+                  style: {
+                    "background-image":
+                      "url(" +
+                      "https://image.tmdb.org/t/p/w500" +
+                      totalResponse.poster_path +
+                      ")"
+                  }
+                },
+                [
+                  _c("div", { staticClass: "mdl-card__title" }, [
                     _c(
-                      "a",
-                      {
-                        staticClass:
-                          "mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect text-light bg-dark",
-                        on: {
-                          click: function($event) {
-                            return _vm.singleMovie(totalResponse.id)
-                          }
-                        }
-                      },
-                      [_vm._v("Get Details")]
+                      "h1",
+                      { staticClass: "mdl-card__title-text text-light" },
+                      [_c("strong", [_vm._v(_vm._s(totalResponse.title))])]
                     )
-                  ]
-                )
-              ]
-            )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "mdl-card__supporting-text text-light" },
+                    [
+                      _vm._v(
+                        "\n            " +
+                          _vm._s(totalResponse.overview) +
+                          "\n          "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "mdl-card__actions mdl-card--border" },
+                    [
+                      _c(
+                        "a",
+                        {
+                          staticClass:
+                            "mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect text-light bg-dark",
+                          on: {
+                            click: function($event) {
+                              return _vm.singleMovie(totalResponse.id)
+                            }
+                          }
+                        },
+                        [_vm._v("Get Details")]
+                      )
+                    ]
+                  )
+                ]
+              )
+            ])
           ]
         )
-      })
-    ],
-    2
-  )
+      }),
+      0
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -3962,6 +4000,8 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "singleMovie" } }, [
+    _vm.loading ? _c("div", { staticClass: "loader" }) : _vm._e(),
+    _vm._v(" "),
     _c(
       "div",
       {
@@ -3976,9 +4016,15 @@ var render = function() {
       },
       [
         _c("div", { staticClass: "mdl-card__title" }, [
-          _c("h2", { staticClass: "mdl-card__title-text text-center" }, [
-            _vm._v(_vm._s(_vm.singleMovie.title))
-          ])
+          _c(
+            "h2",
+            { staticClass: "mdl-card__title-text text-center text-primary" },
+            [
+              _c("a", { attrs: { href: _vm.homepageLink, target: "blank" } }, [
+                _vm._v(_vm._s(_vm.singleMovie.title))
+              ])
+            ]
+          )
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "mdl-card__supporting-text m-auto" }, [
@@ -4012,12 +4058,10 @@ var render = function() {
         [
           _vm._m(1),
           _vm._v(" "),
-          _c("h5", [
+          _c("h5", { staticClass: "text-info" }, [
+            _c("span", [_vm._v(_vm._s(_vm.singleMovie.vote_average) + "/10")]),
             _vm._v(
-              _vm._s(_vm.singleMovie.vote_average) +
-                "/10 (" +
-                _vm._s(_vm.singleMovie.vote_count) +
-                ")"
+              "\n        (" + _vm._s(_vm.singleMovie.vote_count) + ")\n      "
             )
           ])
         ]
@@ -4030,7 +4074,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "text-bold" }, [
+    return _c("span", { staticClass: "text-bold text-success" }, [
       _c("h4", [_vm._v("Overview:")])
     ])
   },
@@ -4038,7 +4082,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "text-bold" }, [
+    return _c("span", { staticClass: "text-bold text-success" }, [
       _c("h4", [_vm._v("Rating:")])
     ])
   }

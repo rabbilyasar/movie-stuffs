@@ -42,13 +42,6 @@ export default {
       this.$router.push({name: 'search', params: { query: this.queryForRouter }});
     }
   },
-
-  // mounted() {
-  //   axios.get(`https://api.themoviedb.org/3/search/movie?api_key=5f5cc4cec8c4b74023cc7963417ca5d2&language=en-US&query=${this.filteredSearch}&page=1&include_adult=false`)
-  //   .then(res => 
-  //     this.results = res.data 
-  //   )
-  // }
 };
 </script>
 
