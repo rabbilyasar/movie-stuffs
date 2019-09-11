@@ -2080,7 +2080,7 @@ __webpack_require__.r(__webpack_exports__);
       key: "",
       token: this.$route.query.request_token,
       loading: true,
-      ratingValue: null
+      ratingValue: ''
     };
   },
   mounted: function mounted() {

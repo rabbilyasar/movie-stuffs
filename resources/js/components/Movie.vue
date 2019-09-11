@@ -68,7 +68,7 @@ export default {
       key: "",
       token: this.$route.query.request_token,
       loading: true,
-      ratingValue: null
+      ratingValue: ''
     };
   },
 
